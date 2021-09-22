@@ -1,30 +1,33 @@
 package FeatureExtraction;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import Preprocessing.TxtReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 
 public class HSWN {
-
-    public void PrintFile (String filePath) {
-        try {
-            File obj = new File(filePath);
-            Scanner myReader = new Scanner(obj);
-
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
-            }
-            myReader.close();
-        }
-        catch (FileNotFoundException e){
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    String filePath;
+    public HSWN(String filePath){
+        this.filePath = filePath;
     }
-    public static void main(String[] args) {
-        HSWN obj = new HSWN();
+    public List<String[]> readFile() throws IOException {
+        TxtReader obj = new TxtReader(filePath);
+        return obj.txtFileReader();
+    }
+    public void parseFile() throws IOException{
+        Map<String[], Double[]> sentimentPolarity = new HashMap<>();
+        List<String[]> hindiSentiWordNet = readFile();
+        for(String[] sentence: hindiSentiWordNet){
+
+        }
+//        return sentimentPolarity;
+    }
+    public static void main(String[] args) throws IOException {
         String filePath = "Dataset/Hindi Lexicons/HindiSentiWordnet.txt";
-        obj.PrintFile(filePath);
+        HSWN obj = new HSWN(filePath);
+
+//        obj.parseFile();
     }
 }
