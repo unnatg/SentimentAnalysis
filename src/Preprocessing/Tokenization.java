@@ -57,7 +57,6 @@ public class Tokenization {
         }
         return labelsList;
     }
-}
 //    public static void main(String[] args) throws IOException {
 //        String filePath = "Dataset/Hindi Movie Reviews/Cleaned/ShuffledHindiText.csv";
 //        Tokenization obj = new Tokenization(filePath);
@@ -66,4 +65,4 @@ public class Tokenization {
 //        System.out.println(tokenizedWords);
 //        System.out.println(tokenizeLabels);
 //    }
-//}
+}

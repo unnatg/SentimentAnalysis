@@ -1,10 +1,16 @@
 package Preprocessing;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import edu.stanford.nlp.ling.CoreLabel;
 import org.apache.commons.lang3.StringUtils;
 
-
 public class Stemming {
-
+    String filePath;
+    public Stemming(String filePath){
+        this.filePath = filePath;
+    }
     private static final String [] stem1 = new String [] { "ो", "े", "ू", "ु", "ी", "ि", "ा" };
     private static final String [] stem2 = new String [] { "कर", "ाओ", "िए", "ाई", "ाए", "ने", "नी", "ना", "ते", "ीं", "ती",
             "ता", "ाँ", "ां", "ों", "ें" };
@@ -22,8 +28,12 @@ public class Stemming {
         stemList.add(stem2);
         stemList.add(stem1);
     }
-    public Stemming(){
+
+    public ArrayList<List<CoreLabel>> tokenizeWords() throws IOException{
+        Tokenization obj = new Tokenization(filePath);
+        return (obj.tokenizeWords());
     }
+
     public String stemprocess(String word){
         int wlen = word.length();
         int wordlen = wlen*3;
@@ -35,16 +45,41 @@ public class Stemming {
                         return StringUtils.substring(word, 0, wlen - cut[icnt]);
                     }
                 }
-
             }
             icnt--;
         }
         return word;
     }
-    public static void main(String [] argv){
-        Stemming sm = new Stemming();
-        String word = "रास्ते";
-        System.out.println(sm.stemprocess(word));
+
+    public void stemmedWords() throws IOException{
+        ArrayList<List<CoreLabel>> tokenizedWords = tokenizeWords();
+//        for(List<CoreLabel> sentence: tokenizedWords){
+//            for(CoreLabel coreLabel: sentence){
+//                String words = String.valueOf(coreLabel);
+//                //System.out.print(words+" ");
+//                String stemmed_words = stemprocess(words);
+//                System.out.print(stemmed_words+" ");
+//            }
+//            System.out.println();
+//        }
+        List<List<String>> stemmedList = new ArrayList<>();
+        List<String> stemmedWords = new ArrayList<>();
+        for(List<CoreLabel> sentence: tokenizedWords){
+            for(CoreLabel coreLabel: sentence){
+                String words = String.valueOf(coreLabel);
+                String stemmedword = stemprocess(words);
+                stemmedWords.add(stemmedword);
+            }
+            stemmedList.add(stemmedWords);
+        }
+        for(List<String> s: stemmedList){
+            System.out.println(s+" ");
+        }
     }
 
+    public static void main(String [] argv) throws IOException {
+        String filePath = "Dataset/Hindi Movie Reviews/Cleaned/ShuffledHindiText.csv";
+        Stemming sm = new Stemming(filePath);
+        sm.stemmedWords();
+    }
 }
