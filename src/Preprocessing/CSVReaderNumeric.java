@@ -27,8 +27,26 @@ public class CSVReaderNumeric {
         return list;
     }
 
-//    public static void main(String[] args) throws IOException {
-//        List<double[]> list = new CSVReaderNumeric("Dataset/SplitTfidf/Unigram/Training/x_train.csv").
-//                csvFileReader();
-//    }
+    public double[][] read_csv() throws IOException {
+        List<double[]> list = csvFileReader();
+        int number_of_rows = list.size();
+        int number_of_columns = list.get(1).length;
+        double[][] dataArray = new double[number_of_rows][number_of_columns];
+        for (int i = 0; i < number_of_rows; i++) {
+            for (int j = 0; j < number_of_columns; j++){
+                dataArray[i][j] = list.get(i)[j];
+            }
+        }
+        return dataArray;
+    }
+    public static void main(String[] args) throws IOException {
+        double[][] dataArray = new CSVReaderNumeric("Dataset/SplitTfidf/Unigram/Training/x_train.csv").
+                read_csv();
+        for(int i=0;i< dataArray.length;i++){
+            for(int j=0;j< dataArray[0].length;j++){
+                System.out.print(dataArray[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 }

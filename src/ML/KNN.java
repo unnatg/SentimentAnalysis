@@ -72,7 +72,7 @@ public class KNN {
                 double sum = euclidean(doubles, value);
                 eucList.add(sum);
             }
-            // Sort eucList in descending order
+            // Sort eucList in ascending order
             Double[] eucArray = new Double[eucList.size()];
             eucList.toArray(eucArray);
             double[] ytrain = new double[y_trainUnigram.size()];
@@ -82,7 +82,7 @@ public class KNN {
             }
             for (int i = 0; i < eucArray.length - 1; i++) {
                 for (int j = 0; j < eucArray.length - i - 1; j++) {
-                    if (eucArray[j] < eucArray[j + 1]) {
+                    if (eucArray[j] > eucArray[j + 1]) {
                         double temp1 = eucArray[j];
                         eucArray[j] = eucArray[j + 1];
                         eucArray[j + 1] = temp1;
@@ -115,13 +115,13 @@ public class KNN {
 
     public double accuracy_score_unigram() {
         List<Double> knnList = kNearestNeighborUnigram();
-        double score = 0.0;
+        int score = 0;
         for (int i = 0; i < y_testUnigram.size(); i++) {
             if (knnList.get(i) == y_testUnigram.get(i)[0]) {
                 ++score;
             }
         }
-        return score / y_testUnigram.size();
+        return ((double)score / y_testUnigram.size());
     }
 
     public List<Double> kNearestNeighborBigram() {
@@ -134,7 +134,7 @@ public class KNN {
                 double sum = euclidean(doubles, value);
                 eucList.add(sum);
             }
-            // Sort eucList in descending order
+            // Sort eucList in ascending order
             Double[] eucArray = new Double[eucList.size()];
             eucList.toArray(eucArray);
             double[] ytrain = new double[y_trainBigram.size()];
@@ -144,7 +144,7 @@ public class KNN {
             }
             for (int i = 0; i < eucArray.length - 1; i++) {
                 for (int j = 0; j < eucArray.length - i - 1; j++) {
-                    if (eucArray[j] < eucArray[j + 1]) {
+                    if (eucArray[j] > eucArray[j + 1]) {
                         double temp1 = eucArray[j];
                         eucArray[j] = eucArray[j + 1];
                         eucArray[j + 1] = temp1;
@@ -176,7 +176,7 @@ public class KNN {
     }
 
     public double accuracy_score_bigram() {
-        List<Double> knnList = kNearestNeighborUnigram();
+        List<Double> knnList = kNearestNeighborBigram();
         double score = 0.0;
         for (int i = 0; i < y_testBigram.size(); i++) {
             if (knnList.get(i) == y_testBigram.get(i)[0]) {
@@ -206,7 +206,7 @@ public class KNN {
             }
             for (int i = 0; i < eucArray.length - 1; i++) {
                 for (int j = 0; j < eucArray.length - i - 1; j++) {
-                    if (eucArray[j] < eucArray[j + 1]) {
+                    if (eucArray[j] > eucArray[j + 1]) {
                         double temp1 = eucArray[j];
                         eucArray[j] = eucArray[j + 1];
                         eucArray[j + 1] = temp1;
@@ -238,7 +238,7 @@ public class KNN {
     }
 
     public double accuracy_score_trigram() {
-        List<Double> knnList = kNearestNeighborUnigram();
+        List<Double> knnList = kNearestNeighborTrigram();
         double score = 0.0;
         for (int i = 0; i < y_testTrigram.size(); i++) {
             if (knnList.get(i) == y_testTrigram.get(i)[0]) {
@@ -253,12 +253,12 @@ public class KNN {
         String filePathBigram = "Dataset/SplitTfidf/Bigram";
         String filePathTrigram = "Dataset/SplitTfidf/Trigram";
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter the value of k: ");
+        System.out.print("Enter the value of k: ");
         int k = Integer.parseInt(bufferedReader.readLine().trim());
         KNN obj = new KNN(filePathUnigram, filePathBigram, filePathTrigram, k);
         obj.loadData();
-        System.out.println(obj.accuracy_score_unigram());
-        System.out.println(obj.accuracy_score_bigram());
-        System.out.println(obj.accuracy_score_trigram());
+        System.out.println("The accuracy score of Unigram: " + obj.accuracy_score_unigram());
+        System.out.println("The accuracy score of Bigram: " + obj.accuracy_score_bigram());
+        System.out.println("The accuracy score of Trigram: " + obj.accuracy_score_trigram());
     }
 }
