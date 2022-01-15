@@ -1,5 +1,5 @@
 # Sentiment Analysis
-Analyzing The Textual Data of Hindi Movie Reviews
+Analyzing The Textual Data Of Hindi Movie Reviews
 
 # Methodology
 ## Step 1: Preprocessing
