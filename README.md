@@ -1,5 +1,6 @@
 # Sentiment Analysis
-Aspect Based Sentiment Analysis
+Analyzing The Textual Data of Hindi Movie Reviews
+
 # Methodology
 ## Step 1: Preprocessing
         a) Sentence Segmentation - Since the sentences have been separated 
@@ -7,7 +8,6 @@ Aspect Based Sentiment Analysis
            different array
         b) Tokenization
         c) Removal of Stop Words
-        d) Stemming
 
 ## Step 2: Feature Extraction
         a) TF-IDF (Term Frequency- Inverse Document Frequency)
@@ -15,20 +15,14 @@ Aspect Based Sentiment Analysis
            - Make a feature matrix
            - Split the data into training and testing. 
         b) Lexicon Based Approach
-           // POS-tagger
-           // Dependency Parser
-           a) Compare with Hindi SentiWordNet and find the polarity
+           - Compare with Hindi SentiWordNet and find the polarity
               and the POS tag as well.  
 
 ## Step 3: Sentiment Score Computation
         a) Machine Learning Algorithms
-           a) SupportVectorClassifier
-           b) RandomForestClassifier
-           c) XGBoost
-           d) LogisticRegression
-           e) KNearestNeighbour
+           - k-Nearest Neighbors
         
         b) Lexicon-Based Approach
-           a) Use Hindi SentiWordNet(HSWN) to compute the Sentiment Score
+           - Use Hindi SentiWordNet(HSWN) to compute the Sentiment Score
            the sentence.
             
